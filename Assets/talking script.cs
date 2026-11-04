@@ -6,7 +6,7 @@ public class talkingscript : MonoBehaviour
 {
     [SerializeField] TMP_Text chatlog;
     [SerializeField] TMP_InputField input;
-    string content = "Hej det är jag verity vill du lära du hur man skapar vänner.";
+    string content = "Hej det är jag verity jag kan lära du hur man skapar vänner.";
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -24,20 +24,31 @@ public class talkingscript : MonoBehaviour
         Response(input.text);
         input.text = "";
     }
-        
-        void Response(string msg)
+
+    void Response(string msg)
     {
         string response = "";
-        Match match = Regex.Match(msg, "ja"); // varje medelande du sickar checkas omd et är med i ett patter
+        Match match = Regex.Match(msg, "jag mår"); // varje medelande du sickar checkas omd et är med i ett patter
         if (match.Success)//om det är med i en pattern
         {
             string mående = msg.Substring(match.Index + match.Length); // tar den bort allt förutom ordet efter jag mår
             string[] svara =
             {
-                
+                 "Varför mår du" + mående,
+                "Är det första gången du mår" + mående,
+                "mår du ofta" + mående,
+                "vad hände för att du ska känna dig" + mående,
+                "kan du förklara varför du mår" + mående,
             };
             response = svara[Random.Range(0, svara.Length)]; // välj en random
         }
-    }
+        match = Regex.Match(msg, "jag gillar");
+        if (match.Success)
+        {
+            if (msg == "")
+            {
 
+            }
+        }
+    }
 }
