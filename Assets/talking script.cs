@@ -42,13 +42,18 @@ public class talkingscript : MonoBehaviour
             };
             response = svara[Random.Range(0, svara.Length)]; // välj en random
         }
-        match = Regex.Match(msg, "jag gillar");
+        match = Regex.Match(msg, "vänner"); // använder samma variable match men tittar olikt mönster
         if (match.Success)
         {
-            if (msg == "")
+            string gillar = msg.Substring(match.Index + match.Length);
+            string[] tycker =
             {
-
-            }
+                    "varför gillar du det",
+                    "varför tycker du så",
+                    "berätta mer",
+                    "intresant elaborera vidare",
+                };
+            response = tycker[Random.Range(0, tycker.Length)];
         }
     }
 }
