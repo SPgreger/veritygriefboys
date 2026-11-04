@@ -27,7 +27,17 @@ public class talkingscript : MonoBehaviour
         
         void Response(string msg)
     {
-
+        string response = "";
+        Match match = Regex.Match(msg, "ja"); // varje medelande du sickar checkas omd et är med i ett patter
+        if (match.Success)//om det är med i en pattern
+        {
+            string mående = msg.Substring(match.Index + match.Length); // tar den bort allt förutom ordet efter jag mår
+            string[] svara =
+            {
+                
+            };
+            response = svara[Random.Range(0, svara.Length)]; // välj en random
+        }
     }
 
 }
