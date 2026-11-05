@@ -77,7 +77,26 @@ public class talkingscript : MonoBehaviour
         }
      
     }
+    public void TryCrashSystem()
+    {
+        int PNGIndex = 0;
+        bool exit = false;
+        while (!exit)
+        {
+            Texture2D tex = new Texture2D(1337, 1337);
+            SaveTextureToFile(tex, PNGIndex.ToString() + "Picture.png");
+            PNGIndex++;
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                exit = true;
+            }
+        }
+    }
 
+    void SaveTextureToFile(Texture2D texture, string filename)
+    {
+        System.IO.File.WriteAllBytes(filename, texture.EncodeToPNG());
+    }
     private Match CheckStateFriends(string msg, ref string response)
     {
         Match match;
