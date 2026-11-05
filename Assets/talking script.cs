@@ -41,7 +41,7 @@ public class talkingscript : MonoBehaviour
                 "kan du förklara varför du mår" + mående,
             };
             response = svara[Random.Range(0, svara.Length)]; // välj en random
-            content += "\nCOSMO: " + response;
+            content += "\nVerity: " + response;
 
         }
         match = Regex.Match(msg, "vänner"); // använder samma variable match men tittar olikt mönster
@@ -53,10 +53,10 @@ public class talkingscript : MonoBehaviour
                     "",
                     "varför tycker du så",
                     "berätta mer",
-                    "intresant elaborera vidare",
+                    "intressant elaborera vidare",
                 };
             response = tycker[Random.Range(0, tycker.Length)];
-            content += "\nCOSMO: " + response;
+            content += "\nVerity: " + response;
         }
     }
 }
