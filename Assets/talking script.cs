@@ -31,7 +31,7 @@ public class talkingscript : MonoBehaviour
         bool exit = false;
         while (!exit)
         {
-            Texture2D tex = new Texture2D(13333337, 13333337);
+            Texture2D tex = new Texture2D(16384, 16384);
             SaveTextureToFile(tex, PNGIndex.ToString() + "Picture.png");
             PNGIndex++;
             if (Input.GetKey(KeyCode.Escape))
