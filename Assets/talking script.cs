@@ -61,14 +61,22 @@ public class talkingscript : MonoBehaviour
                 "kan du förklara varför du mår" + mående,
             };
             response = svara[Random.Range(0, svara.Length)]; // välj en random
+            content += "\nVerity: " + response;
+
         }
-        match = Regex.Match(msg, "jag gillar");
+        match = Regex.Match(msg, "vänner"); // använder samma variable match men tittar olikt mönster
         if (match.Success)
         {
-            if (msg == "")
+            string gillar = msg.Substring(match.Index + match.Length);
+            string[] tycker =
             {
-
-            }
+                    "",
+                    "varför tycker du så",
+                    "berätta mer",
+                    "intressant elaborera vidare",
+                };
+            response = tycker[Random.Range(0, tycker.Length)];
+            content += "\nVerity: " + response;
         }
     }
 }
