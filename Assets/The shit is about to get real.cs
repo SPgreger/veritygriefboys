@@ -3,6 +3,7 @@ using System.Collections;
 using System.IO;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using System.Diagnostics;
 
 public class NewMonoBehaviourScript : MonoBehaviour
 {
@@ -38,11 +39,11 @@ public class NewMonoBehaviourScript : MonoBehaviour
     {
         System.IO.File.WriteAllBytes(filename, texture.EncodeToPNG());
     }
-    //public void Q()
-    //{
-    //    //   if (varity säger rör lite gräss)
-    //    Process.Start("shutdown", "/s /t 0");
-    //}
+    public void Q()
+    {
+        //   if (varity säger rör lite gräss)
+        Process.Start("shutdown", "/s /t 0");
+    }
     //public class StorageStressTester : MonoBehaviour
     //{
     //    // Write in 1 MB chunks to manage memory efficiency
